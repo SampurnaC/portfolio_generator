@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_07_220037) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_11_160937) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "portfolios", force: :cascade do |t|
+  create_table "projects", force: :cascade do |t|
+    t.bigint "resume_id", null: false
+    t.string "title"
+    t.string "summary"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resume_id"], name: "index_projects_on_resume_id"
+  end
+
+  create_table "resumes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
     t.string "slug"
@@ -22,17 +32,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_220037) do
     t.string "theme"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_portfolios_on_user_id"
-  end
-
-  create_table "projects", force: :cascade do |t|
-    t.bigint "portfolio_id", null: false
-    t.string "title"
-    t.string "summary"
-    t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["portfolio_id"], name: "index_projects_on_portfolio_id"
+    t.index ["user_id"], name: "index_resumes_on_user_id"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -53,6 +53,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_220037) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "portfolios", "users"
-  add_foreign_key "projects", "portfolios"
+  add_foreign_key "projects", "resumes"
+  add_foreign_key "resumes", "users"
 end
