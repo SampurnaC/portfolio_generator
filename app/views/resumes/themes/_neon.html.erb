@@ -1,0 +1,26 @@
+<div class="resume-professional card shadow-sm mb-4">
+  <div class="card-header bg-primary text-white">
+    <h2 class="h4 mb-0"><%= resume.name %></h2>
+  </div>
+
+  <div class="card-body">
+    <p class="text-muted"><%= resume.bio %></p>
+
+    <% if resume.projects.any? %>
+      <h5 class="mt-3">Projects</h5>
+      <ul class="list-group list-group-flush mb-3">
+        <% resume.projects.each do |project| %>
+          <li class="list-group-item">
+            <strong><%= project.title %></strong> - <%= truncate(project.summary, length: 80) %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    
+  </div>
+
+  <div class="card-footer text-end">
+    <a href="#" class="btn btn-outline-primary btn-sm">Contact Me</a>
+  </div>
+</div>

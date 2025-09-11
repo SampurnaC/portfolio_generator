@@ -1,0 +1,47 @@
+<%=form_with(model: [current_user, resume], local: true) do |f|%>
+  <% if resume.errors.any? %>
+    <div class="error-messages">
+      <h2><%= pluralize(resume.errors.count) %> prohibited this errors from being saved.</h2>
+      <ul>
+        <% resumes.errors.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :bio %>
+    <%= f.text_area :bio %>
+  </div>
+
+  <div class="field">
+    <%= f.label :theme %>
+    <%= f.select :theme, ["clean", "minimal", "dark", "neon"], prompt: "Choose a theme" %>
+  </div>
+  
+  <%= f.fields_for :projects  do |p| %>
+    <%= p.label :title %>
+    <%= p.text_field :title %>
+    <br>
+    <%= p.label :summary %>
+    <%= p.text_field :summary %>
+    <br>
+    <%= p.label :url %>
+    <%= p.text_field :url %>
+    <br>
+
+    <div class="form-check">
+      <%= p.check_box :_destroy, class: "form-check-input" %>
+      <%= p.label :_destroy, "Remove project", class: "form-check-label" %>
+    </div>
+
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

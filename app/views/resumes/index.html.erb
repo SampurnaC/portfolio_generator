@@ -1,0 +1,20 @@
+<h1 class="text-center my-4">All Resumes</h1>
+
+<div class="container">
+  <div class="row">
+    <% @resumes.each do |resume| %>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="text-center p-3 bg-dark text-success rounded">
+              <h2 class="display-6"><%= resume.name %></h2>
+              <p><%= resume.bio %></p>
+              <small>Theme : <%= resume.theme %></small>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
