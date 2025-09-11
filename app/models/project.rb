@@ -1,3 +1,4 @@
 class Project < ApplicationRecord
-  belongs_to :portfolio
+  belongs_to :resume
+  validates :title, presence: true
 end
