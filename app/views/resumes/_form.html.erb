@@ -15,7 +15,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :bio %>
+  <%= f.label :bio %>
     <%= f.text_area :bio %>
   </div>
 
@@ -41,6 +41,20 @@
     </div>
 
   <% end %>
+
+  <%= f.fields_for :skills  do |p| %>
+    <%= p.label :name %>
+    <%= p.text_field :name %>
+    <br>
+
+    <div class="form-check">
+      <%= p.check_box :_destroy, class: "form-check-input" %>
+      <%= p.label :_destroy, "Remove Skill", class: "form-check-label" %>
+    </div>
+
+  <% end %>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>
