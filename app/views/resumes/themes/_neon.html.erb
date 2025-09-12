@@ -16,8 +16,17 @@
         <% end %>
       </ul>
     <% end %>
-
     
+    <% if resume.skills.any? %>
+      <h5 class="mt-3">Skills</h5>
+      <ul class="list-group list-group-flush mb-3">
+        <% resume.skills.each do |skill| %>
+          <li class="list-group-item">
+            <strong><%= skill.name %></strong>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 
   <div class="card-footer text-end">
