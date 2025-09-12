@@ -15,6 +15,7 @@ class ResumesController < ApplicationController
     else
       @resume=current_user.build_resume
       2.times {@resume.projects.build}
+      3.times {@resume.skills.build}
     end
   end
 
@@ -56,7 +57,7 @@ class ResumesController < ApplicationController
   end
 
   def resume_params
-    params.require(:resume).permit(:name, :slug, :bio, :theme, projects_attributes: [:id, :title, :summary, :url, :_destroy])
+    params.require(:resume).permit(:name, :slug, :bio, :theme, projects_attributes: [:id, :title, :summary, :url, :_destroy], skills_attributes: [:id, :name])
   end
 
 end
