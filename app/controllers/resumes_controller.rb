@@ -7,6 +7,14 @@ class ResumesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "resume_#{@resume.id}",
+        templates: "resumes/show.pdf.erb",
+        locals: {resume: @resume}
+      end
+    end
   end
 
   def new
