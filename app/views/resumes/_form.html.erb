@@ -1,45 +1,60 @@
-<%=form_with(model: [current_user, resume], local: true) do |f|%>
-<% if resume.errors.any? %>
-<div class="error-messages">
-  <h2><%= pluralize(resume.errors.count) %> prohibited this errors from being saved.</h2>
-  <ul>
-    <% resumes.errors.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <h1 class="text-center mb-4">Create / Edit Resume</h1>
 
-  <div class="field">
-    <%= f.label :bio %>
-    <%= f.text_area :bio %>
-  </div>
+      <%= form_with(model: [current_user, resume], local: true, html: { class: "needs-validation" }) do |f| %>
+        
+        <% if resume.errors.any? %>
+          <div class="alert alert-danger">
+            <h4><%= pluralize(resume.errors.count, "error") %> prohibited this resume from being saved:</h4>
+            <ul>
+              <% resume.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-  <h3>Projects</h3>
-  <div data-controller="nested-form">
-    <div data-nested-form-target="container">
-      <%= f.fields_for :projects do |p| %>
-        <%= render "project_fields", f: p %>
+        <div class="mb-3">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control", placeholder: "Enter your full name" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :bio, class: "form-label" %>
+          <%= f.text_area :bio, class: "form-control", rows: 4, placeholder: "Write a short bio about yourself" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :theme, class: "form-label" %>
+          <%= f.select :theme, ["clean", "minimal", "dark", "neon"], { prompt: "Choose a theme" }, class: "form-select" %>
+        </div>
+
+        <h3 class="mb-3">Projects</h3>
+        <div data-controller="nested-form" class="mb-3">
+          <div data-nested-form-target="container" class="mb-3">
+            <%= f.fields_for :projects do |p| %>
+              <%= render "project_fields", f: p %>
+            <% end %>
+          </div>
+
+          <template data-nested-form-target="template">
+            <%= f.fields_for :projects, Project.new, child_index: "NEW_RECORD" do |p| %>
+              <%= render "project_fields", f: p %>
+            <% end %>
+          </template>
+
+          <button type="button" class="btn btn-outline-primary mb-3" data-action="click->nested-form#add">
+            + Add Project
+          </button>
+        </div>
+
+        <div class="d-grid">
+          <%= f.submit "Save Resume", class: "btn btn-success btn-lg" %>
+        </div>
+
       <% end %>
     </div>
-
-    <!-- Hidden template to clone -->
-    <template data-nested-form-target="template">
-      <%= f.fields_for :projects, Project.new, child_index: "NEW_RECORD" do |p| %>
-        <%= render "project_fields", f: p %>
-      <% end %>
-    </template>
-    
-
-    <!-- Add Project button -->
-    <a href="#" data-action="click->nested-form#add">+ Add Project</a>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
