@@ -49,7 +49,27 @@
             + Add Project
           </button>
         </div>
+        
 
+        <h3>Skills</h3>
+        <div data-controller="nested-form" class="mb-3">
+          <div data-nested-form-target="container" class="mb-3">
+            <%= f.fields_for :skills do |s| %>
+              <%= render "skill_fields", f:s %>
+            <% end %>
+          </div>
+
+          <template data-nested-form-target="template">
+            <%= f.fields_for :skills, Skill.new, child_index: "NEW_RECORD" do |s| %>
+              <%= render "skill_fields", f:s %>
+            <% end %>
+          </template>
+
+          <button type="button" class="btn btn-outline-primary mb-3" data-action="click->nested-form#add">
+            + Add Skill
+          </button>
+
+        </div>
         <div class="d-grid">
           <%= f.submit "Save Resume", class: "btn btn-success btn-lg" %>
         </div>
