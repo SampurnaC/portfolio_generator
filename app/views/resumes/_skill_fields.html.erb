@@ -1,0 +1,14 @@
+<div class="nested-fields border p-3 mb-3 rounded shadow-sm">
+  <div class="mb-3">
+    <%= f.text_field :name, class: "form-control", placeholder: "Enter your skill" %>
+  </div>
+
+
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="form-check">
+      <%= f.check_box :_destroy, class: "form-check-input" %>
+      <%= f.label :_destroy, "Remove Skill on submit", class: "form-check-label" %>
+    </div>
+
+  </div>
+</div>
