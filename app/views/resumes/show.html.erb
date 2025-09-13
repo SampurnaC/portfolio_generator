@@ -1,1 +1,2 @@
 <%= render "resumes/themes/#{@resume.theme}", resume: @resume %>
+<%= link_to "Download as PDF", user_resume_path(current_user, @resume, format: :pdf), class: "btn btn-primary mb-3" %>
