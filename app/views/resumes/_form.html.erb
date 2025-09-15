@@ -1,8 +1,6 @@
 <div class="container my-5">
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
-      <h1 class="text-center mb-4">Create / Edit Resume</h1>
-
       <%= form_with(model: [current_user, resume], local: true, html: { class: "needs-validation" }) do |f| %>
         
         <% if resume.errors.any? %>
@@ -70,8 +68,28 @@
           </button>
 
         </div>
+
+        <h3>Add Experiences</h3>
+        <div data-controller="nested-form" class="mb-3">
+          <div data-nested-form-target="container" class="mb-3">
+            <%= f.fields_for :experiences do |e| %>
+              <%= render "experience_fields", f:e %>
+            <% end %>
+          </div>
+
+          <template data-nested-form-target="template">
+            <%= f.fields_for :experiences, Experience.new, child_index: "NEW_RECORD" do |e| %>
+              <%= render "experience_fields", f:e %>
+            <% end %>
+          </template>
+          
+          <button type="button" class="btn btn-outline-primary mb-3" data-action="click->nested-form#add">
+            + Add Experience
+          </button>
+
+        </div>
         <div class="d-grid">
-          <%= f.submit "Save Resume", class: "btn btn-success btn-lg" %>
+          <%= f.submit "Save Resume", class: "btn btn-primary btn-lg" %>
         </div>
 
       <% end %>
