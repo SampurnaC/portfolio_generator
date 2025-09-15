@@ -1,1 +1,32 @@
-<h1>Clean Theme</h1>
+<div class="resume-clean p-4 bg-white">
+  <h1 class="fw-bold mb-2"><%= resume.name %></h1>
+  <p class="text-secondary mb-4"><%= resume.bio %></p>
+
+  <% if resume.experiences.any? %>
+    <h4 class="border-bottom pb-1">Experience</h4>
+    <% resume.experiences.each do |exp| %>
+      <div class="mb-3">
+        <strong><%= exp.position %></strong>, <%= exp.company_name %><br>
+        <small class="text-muted">
+          <%= exp.date_from.strftime("%b %Y") %> –
+          <% if exp.currently_working %>Present<% else %><%= exp.date_to&.strftime("%b %Y") || "N/A" %><% end %>
+        </small>
+        <p><%= exp.summary %></p>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if resume.skills.any? %>
+    <h4 class="border-bottom pb-1">Skills</h4>
+    <p><%= resume.skills.map(&:name).join(", ") %></p>
+  <% end %>
+
+  <% if resume.projects.any? %>
+    <h4 class="border-bottom pb-1">Projects</h4>
+    <% resume.projects.each do |project| %>
+      <p>
+        <strong><%= project.title %></strong> – <%= truncate(project.summary, length: 80) %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
