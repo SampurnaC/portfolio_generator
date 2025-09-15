@@ -1,10 +1,43 @@
-<div class="resume-professional card shadow-sm mb-4">
-  <div class="card-header bg-primary text-white">
-    <h2 class="h4 mb-0"><%= resume.name %></h2>
+<div class="resume-professional mb-4">
+  <div class="card-header">
+    <h1 class="mb-0"><%= resume.name %></h1>
   </div>
 
   <div class="card-body">
     <p class="text-muted"><%= resume.bio %></p>
+
+    <% if resume.experiences.any? %>
+      <h5 class="mt-3">Experience</h5>
+      <ul class="list-group list-group-flush mb-3">
+        <% resume.experiences.each do |exp| %>
+          <li class="list-group-item">
+            <strong><%= exp.position %></strong> at <%= exp.company_name %><br>
+
+            <small class="text-muted">
+              <%= exp.date_from.strftime("%b %Y") %> –
+              <% if exp.currently_working %>
+                Present
+              <% else %>
+                <%= exp.date_to.present? ? exp.date_to.strftime("%b %Y") : "N/A" %>
+              <% end %>
+            </small>
+
+            <p class="mt-2 mb-0"><%= truncate(exp.summary, length: 100) %></p>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if resume.skills.any? %>
+      <h5 class="mt-3">Skills</h5>
+      <ul class="list-group list-group-flush mb-3">
+        <% resume.skills.each do |skill| %>
+          <li class="list-group-item">
+            <strong><%= skill.name %></strong>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
 
     <% if resume.projects.any? %>
       <h5 class="mt-3">Projects</h5>
@@ -12,17 +45,6 @@
         <% resume.projects.each do |project| %>
           <li class="list-group-item">
             <strong><%= project.title %></strong> - <%= truncate(project.summary, length: 80) %>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
-    
-    <% if resume.skills.any? %>
-      <h5 class="mt-3">Skills</h5>
-      <ul class="list-group list-group-flush mb-3">
-        <% resume.skills.each do |skill| %>
-          <li class="list-group-item">
-            <strong><%= skill.name %></strong>
           </li>
         <% end %>
       </ul>
