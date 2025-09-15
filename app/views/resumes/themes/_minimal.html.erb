@@ -1,1 +1,34 @@
-<h1>Minimal Theme</h1>
+<div class="resume-minimal container py-4">
+  <h1 class="display-5"><%= resume.name %></h1>
+  <p class="lead"><%= resume.bio %></p>
+
+  <% if resume.experiences.any? %>
+    <h3>Experience</h3>
+    <% resume.experiences.each do |exp| %>
+      <p>
+        <strong><%= exp.position %></strong>, <%= exp.company_name %><br>
+        <em>
+          <%= exp.date_from.strftime("%Y") %> –
+          <% if exp.currently_working %>Present<% else %><%= exp.date_to&.strftime("%Y") || "N/A" %><% end %>
+        </em>
+      </p>
+      <p><%= exp.summary %></p>
+    <% end %>
+  <% end %>
+
+  <% if resume.skills.any? %>
+    <h3>Skills</h3>
+    <ul>
+      <% resume.skills.each do |skill| %>
+        <li><%= skill.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if resume.projects.any? %>
+    <h3>Projects</h3>
+    <% resume.projects.each do |project| %>
+      <p><strong><%= project.title %></strong>: <%= truncate(project.summary, length: 100) %></p>
+    <% end %>
+  <% end %>
+</div>
