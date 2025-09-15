@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  position: MyString
+  company_name: MyString
+  summary: MyString
+  date_from: 2025-09-13
+  date_to: 2025-09-13
+  currently_working: false
+  resume: one
+
+two:
+  position: MyString
+  company_name: MyString
+  summary: MyString
+  date_from: 2025-09-13
+  date_to: 2025-09-13
+  currently_working: false
+  resume: two
