@@ -5,7 +5,7 @@
     <% @resumes.each do |resume| %>
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="card shadow-sm">
-            <%= link_to user_resume_path(resume.user, resume), class: "text-decoration-none" do %>
+            <%= link_to (user_signed_in? ? new_user_resume_path(current_user, theme: resume.theme) : new_user_session_path), class: "text-decoration-none" do %>
               <div class="card-body">
                 <div class="text-center p-3 bg-dark text-success rounded">
                   <h2 class="display-6"><%= resume.name %></h2>
