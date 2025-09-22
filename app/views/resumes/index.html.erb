@@ -6,14 +6,7 @@
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="card shadow-sm">
             <%= link_to (user_signed_in? ? new_user_resume_path(current_user, theme: resume.theme) : new_user_session_path), class: "text-decoration-none" do %>
-              <div class="card-body">
-                <div class="text-center p-3 bg-dark text-success rounded">
-                  <h2 class="display-6"><%= resume.name %></h2>
-                  <p><%= resume.bio %></p>
-                  <small>Theme : <%= resume.theme %></small><br>
-                  <small>Username : <%= resume.user.email %></small>
-                </div>
-              </div>
+              <%= render "resumes/themes/#{resume.theme}", resume: resume %>
             <% end %>
           </div>
         </div>
