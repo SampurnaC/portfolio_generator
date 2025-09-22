@@ -18,9 +18,13 @@ class ResumesController < ApplicationController
   end
 
   def new
-    @resume=current_user.build_resume(theme: params[:theme])
-    2.times {@resume.projects.build}
-    3.times {@resume.skills.build}
+    if current_user.resume.present?
+      redirect_to edit_user_resume_path(current_user, current_user.resume)
+    else
+      @resume=current_user.build_resume(theme: params[:theme])
+      2.times {@resume.projects.build}
+      3.times {@resume.skills.build}
+    end
   end
 
   def create
