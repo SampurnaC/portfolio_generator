@@ -3,7 +3,7 @@ class ResumesController < ApplicationController
   before_action :authorize_resume!, only: [:edit, :update, :destroy]
 
   def index
-    @resumes=Resume.all
+    @resumes=Resume.order(created_at: :desc).limit(3)
   end
 
   def show
