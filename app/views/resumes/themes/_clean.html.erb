@@ -29,4 +29,23 @@
       </p>
     <% end %>
   <% end %>
+
+  <% if resume.experiences.any? %>
+    <h4 class="border-bottom pb-1">Experience</h4>
+    <% resume.experiences.each do |exp| %>
+      <div class="mb-3">
+        <strong><%= exp.position %></strong>, <%= exp.company_name %><br>
+        <small class="text-muted">
+          <%= exp.date_from.strftime("%b %Y") %> –
+          <% if exp.currently_working %>
+            Present
+          <% else %>
+            <%= exp.date_to&.strftime("%b %Y") || "N/A" %>
+          <% end %>
+        </small>
+        <p><%= exp.summary %></p>
+      </div>
+    <% end %>
+  <% end %>
+  
 </div>
