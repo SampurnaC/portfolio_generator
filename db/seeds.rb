@@ -16,7 +16,7 @@ themes.each do |theme|
 
   resume=Resume.create({
     user: user,
-    name: Faker::Name.name,
+    name: "#{theme} resume",
     bio: Faker::Markdown.emphasis,
     theme: theme
   })
