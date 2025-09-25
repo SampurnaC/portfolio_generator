@@ -49,6 +49,10 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem 'rspec-rails', '~> 8.0.0'
+  gem "faker"
+
 end
 
 group :development do
@@ -68,4 +72,3 @@ gem "dartsass-rails"
 gem "bootstrap", "~> 5.3.3"
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
-gem "faker"
