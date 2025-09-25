@@ -12,13 +12,11 @@
           <%= link_to "Home", root_path, class: "nav-link" %>
         </li>
         <% if user_signed_in? %>
-          <% if current_user&.resume&.persisted? %>
-            <li class="nav-item">
-              <%= link_to "My Resume", user_resume_path(current_user, current_user.resume), class: "nav-link" if current_user.resume %>
-            </li>
+          <% if current_user.resumes.any? %>
+            <%= link_to "My Resume", my_resumes_user_resumes_path(current_user), class: "nav-link" %>
           <% else %>
             <li class="nav-item">
-              <%= link_to "New Resume", new_user_resume_path(current_user), class: "nav-link" unless current_user.resume %>
+              <%= link_to "New Resume", new_user_resume_path(current_user), class: "nav-link"%>
             </li>
           <% end %>
         <% end %>
