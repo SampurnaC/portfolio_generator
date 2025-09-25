@@ -18,17 +18,13 @@ class ResumesController < ApplicationController
   end
 
   def new
-    if current_user.resume.present?
-      redirect_to edit_user_resume_path(current_user, current_user.resume)
-    else
-      @resume=current_user.build_resume(theme: params[:theme])
-      2.times {@resume.projects.build}
-      3.times {@resume.skills.build}
-    end
+    @resume=current_user.resumes.build(theme: params[:theme])
+    2.times {@resume.projects.build}
+    3.times {@resume.skills.build}
   end
 
   def create
-    @resume=current_user.build_resume(resume_params)
+    @resume=current_user.resumes.build(resume_params)
     if @resume.save
       redirect_to root_path, notice: "Resume created successfully"
     else
