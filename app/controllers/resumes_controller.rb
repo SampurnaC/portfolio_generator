@@ -6,6 +6,10 @@ class ResumesController < ApplicationController
     @resumes=Resume.order(created_at: :desc).limit(3)
   end
 
+  def my_resumes
+    @resumes=current_user.resumes.order(created_at: :desc)
+  end
+
   def show
     respond_to do |format|
       format.html
