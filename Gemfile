@@ -72,3 +72,4 @@ gem "dartsass-rails"
 gem "bootstrap", "~> 5.3.3"
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
+gem "simplecov-rspec", "~> 0.1", groups: [:development, :test]
