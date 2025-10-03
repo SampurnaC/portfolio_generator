@@ -35,4 +35,15 @@ RSpec.describe "Resumes", type: :request do
       }}.not_to change(Resume, :count)
     end
   end
+
+  describe "get resumes of current user" do
+    before { sign_in(@user) }
+
+    it "lists resume of signed in users" do
+      get my_resumes_user_resumes_path(@user)
+      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(200)
+    end
+  end
+
 end
