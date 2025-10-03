@@ -61,4 +61,12 @@ RSpec.describe "Resumes", type: :request do
     end
   end
 
+  describe "DESTROY /users/:user_id/resumes/:id" do
+    before { sign_in(@user) }
+
+    it "deletes the resume" do
+      expect {delete user_resume_path(@user,@resume)}.to change(Resume, :count).by(-1)
+    end
+  end
+
 end
