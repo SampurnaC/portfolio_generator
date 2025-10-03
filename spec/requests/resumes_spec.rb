@@ -61,6 +61,15 @@ RSpec.describe "Resumes", type: :request do
     end
   end
 
+  describe "GET /users/:user_id/resumes/new" do
+    before { sign_in(@user) }
+
+    it "should render the new resume form" do
+      get new_user_resume_path(@user)
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
   describe "DESTROY /users/:user_id/resumes/:id" do
     before { sign_in(@user) }
 
