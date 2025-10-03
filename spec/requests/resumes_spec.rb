@@ -46,4 +46,19 @@ RSpec.describe "Resumes", type: :request do
     end
   end
 
+  describe "GET /users/:user_id/resumes/:id" do
+    before { sign_in(@user) }
+    
+    it "renders the show page" do
+      get user_resume_path(@user, @resume)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "renders resume as pdf" do
+      get user_resume_path(@user, @resume, format: :pdf)
+      expect(response).to have_http_status(:ok)
+      expect(response.media_type).to eq("application/pdf")
+    end
+  end
+
 end
