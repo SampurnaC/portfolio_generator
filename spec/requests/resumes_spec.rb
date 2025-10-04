@@ -98,4 +98,11 @@ RSpec.describe "Resumes", type: :request do
     end
   end
 
+  describe "authorization" do
+    it "prevents deleting other users resume" do
+      delete user_resume_path(@user1,@resume)
+      expect(response).to redirect_to(root_path)
+
+    end
+  end
 end
