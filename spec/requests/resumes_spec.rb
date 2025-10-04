@@ -5,6 +5,7 @@ RSpec.describe "Resumes", type: :request do
   before do
     @user = User.create(email: Faker::Internet.email, password: "password123")
     @resume = @user.resumes.create(user: @user, name: "Software Engineer Jr", bio: "Passionate Software Engineer", slug: "soft-engineer", theme: "neon")
+    @user1 = User.create(email: Faker::Internet.email, password: "password123")
   end
 
   describe "get all resumes" do
@@ -68,6 +69,25 @@ RSpec.describe "Resumes", type: :request do
       get new_user_resume_path(@user)
       expect(response).to have_http_status(:ok)
     end
+  end
+
+  describe "PATCH /users/:user_id/resumes/:id" do
+    before { sign_in(@user) }
+
+    it "should update the resume form successfully" do
+      patch user_resume_path(@user, @resume), params: { resume: { name: "Senior Software Engineer" } }
+      @resume.reload
+      expect(@resume.name).to eq("Senior Software Engineer")
+    end
+
+    it "should not update the resume form with invalid attributes" do
+      patch user_resume_path(@user, @resume), params: { resume: { name: "" } }
+      @resume.reload
+      expect(@resume.name).to eq("Software Engineer Jr")
+      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+
   end
 
   describe "DESTROY /users/:user_id/resumes/:id" do
