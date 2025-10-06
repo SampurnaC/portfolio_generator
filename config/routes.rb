@@ -6,10 +6,11 @@ Rails.application.routes.draw do
       collection do
         get :my_resumes
       end
+    resources :payments, only: [:new, :create]
+
     end
   end
 
-  resources :payments, only: [:new, :create]
   get 'payment_success', to: 'payments#success'
   get 'payment_failure', to: 'payments#failure'
   get "up" => "rails/health#show", as: :rails_health_check
