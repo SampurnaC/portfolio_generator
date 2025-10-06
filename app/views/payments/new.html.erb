@@ -1,0 +1,43 @@
+<h1>Make a Payment</h1>
+
+<div id="dropin-container"></div>
+<button id="submit-button" class="btn btn-primary">Pay</button>
+
+<script src="https://js.braintreegateway.com/web/dropin/1.45.1/js/dropin.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    braintree.dropin.create({
+      authorization: "<%= @client_token %>",
+      container: "#dropin-container"
+    }, function (err, instance) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      document.getElementById("submit-button").addEventListener("click", function () {
+        instance.requestPaymentMethod(function (err, payload) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "<%= payments_path %>";
+
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+          form.innerHTML = `
+            <input type="hidden" name="authenticity_token" value="${csrfToken}">
+            <input type="hidden" name="payment_method_nonce" value="${payload.nonce}">
+            <input type="hidden" name="amount" value="10.00">
+          `;
+
+          document.body.appendChild(form);
+          form.submit();
+        });
+      });
+    });
+  });
+</script>

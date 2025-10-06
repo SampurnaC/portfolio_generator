@@ -85,6 +85,9 @@ GEM
       msgpack (~> 1.2)
     bootstrap (5.3.5)
       popper_js (>= 2.11.8, < 3)
+    braintree (4.30.0)
+      builder (>= 3.2.4)
+      rexml (>= 3.1.9)
     brakeman (7.1.0)
       racc
     builder (3.3.0)
@@ -117,6 +120,9 @@ GEM
     diff-lcs (1.6.2)
     docile (1.4.1)
     dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     drb (2.2.3)
     ed25519 (1.4.0)
     erb (5.0.2)
@@ -398,11 +404,13 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   bootstrap (~> 5.3.3)
+  braintree
   brakeman
   capybara
   dartsass-rails
   debug
   devise (~> 4.9)
+  dotenv-rails
   faker
   importmap-rails
   jbuilder
