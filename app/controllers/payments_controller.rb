@@ -23,4 +23,10 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def success
+    @transaction_id = params[:transaction_id]
+  end
+
+  def failure
+  end
 end
