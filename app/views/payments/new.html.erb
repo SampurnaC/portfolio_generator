@@ -24,7 +24,7 @@
 
           const form = document.createElement("form");
           form.method = "POST";
-          form.action = "<%= payments_path %>";
+          form.action = "<%= user_resume_payments_path(@user,@resume) %>";
 
           const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 

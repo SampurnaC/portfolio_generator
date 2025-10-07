@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  before_action :set_user_and_resume,only: [:new, :create]
   def new
     @client_token=Braintree::ClientToken.generate
   end
@@ -16,8 +17,10 @@ class PaymentsController < ApplicationController
     )
 
     if result.success?
+      @resume.update(paid: true)
       redirect_to payment_success_path(transaction_id: result.transaction.id)
     else
+      @resume.update(paid: false)
       Rails.logger.error("Braintree error: #{result.errors.map(&:message).join(', ')}")
       redirect_to payment_failure_path
     end
@@ -29,4 +32,11 @@ class PaymentsController < ApplicationController
 
   def failure
   end
+
+  private
+  def set_user_and_resume
+    @user=User.find(params[:user_id])
+    @resume=Resume.find(params[:resume_id])
+  end
+
 end
