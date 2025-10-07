@@ -17,8 +17,10 @@ class PaymentsController < ApplicationController
     )
 
     if result.success?
+      @resume.update(paid: true)
       redirect_to payment_success_path(transaction_id: result.transaction.id)
     else
+      @resume.update(paid: false)
       Rails.logger.error("Braintree error: #{result.errors.map(&:message).join(', ')}")
       redirect_to payment_failure_path
     end
