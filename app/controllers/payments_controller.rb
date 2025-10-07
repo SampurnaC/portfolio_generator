@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  before_action :set_user_and_resume,only: [:new, :create]
   def new
     @client_token=Braintree::ClientToken.generate
   end
@@ -29,4 +30,11 @@ class PaymentsController < ApplicationController
 
   def failure
   end
+
+  private
+  def set_user_and_resume
+    @user=User.find(params[:user_id])
+    @resume=Resume.find(params[:resume_id])
+  end
+
 end
